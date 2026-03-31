@@ -1,6 +1,6 @@
 # PR Reviewer — Backend
 
-AI-powered GitHub Pull Request review assistant. Accepts a PR URL, fetches the diff from GitHub, sends it to **Gemini AI** for analysis, and returns a structured code review with bugs, security issues, complexity scores, improvements, and a quality score.
+Express API server that accepts a GitHub PR URL, fetches the diff via the GitHub API, runs parallel AI analysis via Groq, and returns a structured code review.
 
 ## Quick Start
 
@@ -11,174 +11,88 @@ cd pr-reviewer-backend
 npm install
 ```
 
-### 2. Create your `.env` file
+### 2. Configure environment
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` and fill in your keys:
+Edit `.env`:
 
+```env
+GROQ_API_KEY=gsk_...          # Required — get one at console.groq.com
+GITHUB_TOKEN=ghp_...          # Optional — raises GitHub rate limit to 5 000 req/hr
+PORT=3005
+CORS_ORIGIN=http://localhost:5173
 ```
-GEMINI_API_KEY=AIza...
-GITHUB_TOKEN=ghp_...       # optional but recommended
-PORT=3001
-```
 
-### 3. Get your API keys
-
-#### Gemini API Key
-1. Go to [Google AI Studio](https://aistudio.google.com/apikey)
-2. Sign in with your Google account
-3. Click **Create API Key**
-4. Copy the key and paste it into your `.env` as `GEMINI_API_KEY`
-
-> **Note:** With a Gemini Pro subscription you get higher rate limits and access to `gemini-2.5-pro`.
-
-#### GitHub Personal Access Token (optional, avoids rate limits)
-1. Go to [github.com/settings/tokens](https://github.com/settings/tokens)
-2. Click **Generate new token (classic)**
-3. Select the `public_repo` scope (that's all you need for public PRs)
-4. Copy the token and paste it into your `.env` as `GITHUB_TOKEN`
-
-> **Without a GitHub token:** You're limited to 60 API requests/hour.  
-> **With a token:** 5,000 requests/hour.
-
-### 4. Start the server
+### 3. Start the server
 
 ```bash
-# Development (auto-restart on changes)
-npm run dev
-
-# Production
-npm start
+npm run dev    # Development (auto-restart on changes)
+npm start      # Production
 ```
 
-The server starts on `http://localhost:3001`.
+Server runs on `http://localhost:3005`.
 
 ## API Endpoints
 
-### Health Check
-
-```
-GET /api/health
-→ { "status": "ok" }
+### `GET /api/health`
+```json
+{ "status": "ok" }
 ```
 
-### Submit PR for Review
-
-```
-POST /api/review
-Content-Type: application/json
-
+### `POST /api/review`
+```json
 { "prUrl": "https://github.com/owner/repo/pull/123" }
 ```
 
-**Response:**
-```json
-{
-  "pr": {
-    "title": "Fix memory leak in connection pool",
-    "author": "octocat",
-    "base": "main",
-    "head": "fix/memory-leak",
-    "additions": 45,
-    "deletions": 12,
-    "files": 3
-  },
-  "summary": "This PR addresses a memory leak...",
-  "bugs": [
-    {
-      "file": "src/pool.js",
-      "line": "42-45",
-      "severity": "high",
-      "issue": "Connection not closed on error path",
-      "suggestion": "Add a finally block to ensure cleanup"
-    }
-  ],
-  "improvements": [
-    {
-      "category": "Performance",
-      "description": "Consider using a WeakMap for caching",
-      "codeSnippet": "const cache = new WeakMap();"
-    }
-  ],
-  "score": 72,
-  "securityIssues": [
-    {
-      "file": "src/config.js",
-      "line": "12",
-      "type": "hardcoded-secret",
-      "severity": "critical",
-      "description": "API key hardcoded in source",
-      "remediation": "Move to environment variable"
-    }
-  ],
-  "complexityScores": [
-    {
-      "file": "src/pool.js",
-      "before": 8.5,
-      "after": 12.0,
-      "delta": 3.5,
-      "verdict": "degraded"
-    }
-  ],
-  "diff": "diff --git a/src/pool.js b/src/pool.js\n..."
-}
-```
+Runs four AI analyses in parallel:
+- Code review (bugs, improvements, quality score)
+- Security scan (secrets, injection, XSS, etc.)
+- Impact analysis (downstream risk, merge blockers)
+- Test coverage gaps
 
-### Error Responses
+Also computes per-file complexity delta from the diff.
+
+Rate limited to **10 requests / minute / IP**.
+
+### `GET /api/repo-prs?owner=:owner&repo=:repo`
+
+Returns open PRs for a given repository.
+
+## Error Responses
 
 | Status | Meaning |
-|--------|---------|
-| 400 | Invalid or missing PR URL |
+|---|---|
+| 400 | Invalid or missing `prUrl` |
 | 404 | PR not found (bad URL or private repo) |
-| 429 | GitHub API rate limit exceeded |
+| 429 | Rate limit exceeded |
 | 500 | Internal server error |
-
-## Test with curl
-
-```bash
-curl -X POST http://localhost:3001/api/review \
-  -H "Content-Type: application/json" \
-  -d '{"prUrl":"https://github.com/facebook/react/pull/31000"}'
-```
 
 ## Project Structure
 
 ```
 pr-reviewer-backend/
-├── .env.example            # Environment variable template
-├── .gitignore
+├── .env.example
 ├── package.json
-├── README_BACKEND.md
 └── src/
-    ├── server.js            # Express app entry point
+    ├── server.js                  # Express app, middleware, routes
     ├── routes/
-    │   └── review.js        # POST /api/review handler
+    │   ├── review.js              # POST /api/review
+    │   └── repoPrs.js             # GET /api/repo-prs
     ├── services/
-    │   ├── githubService.js  # GitHub API integration
-    │   └── aiService.js      # Gemini AI integration (review + security scan)
+    │   ├── githubService.js       # GitHub API — PR metadata + diff
+    │   └── aiService.js           # Groq AI — all four analyses
     ├── middleware/
-    │   └── errorHandler.js   # Global error handler
+    │   └── errorHandler.js        # Global error handler
     └── utils/
-        ├── diffParser.js     # Diff truncation & filename extraction
+        ├── diffParser.js          # Diff truncation & filename extraction
         └── complexityAnalyzer.js  # Per-file complexity scoring
 ```
 
-## Phase 2 Features (Backend)
+## AI Model
 
-| Feature | Status | Description |
-|---------|--------|-------------|
-| 🔐 Security Scan | ✅ | Second AI call scans for vulnerabilities |
-| 📊 Complexity Scores | ✅ | Per-file complexity delta analysis |
-| 🌙 Diff Viewer | ✅ | Raw diff included in response |
-| 📄 PDF Export | N/A | Frontend-only feature |
+Uses **Groq** with `qwen/qwen3-32b` at `temperature: 0.2`. All four analyses run as separate API calls with a 45-second timeout each.
 
-## Frontend Integration
-
-The frontend (built separately) connects to this server at `http://localhost:3001`.
-
-- CORS is pre-configured for `http://localhost:5173` (Vite default), `http://localhost:5174`, and `http://localhost:3000`
-- The API contract is defined in the shared prompt document
-- Start the backend first, then the frontend
+Get a free Groq API key at [console.groq.com](https://console.groq.com).

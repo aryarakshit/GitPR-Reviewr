@@ -1,16 +1,32 @@
-# React + Vite
+# PR Reviewer — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite frontend for the GitHub PR Review Assistant.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+cd pr-reviewer-frontend
+npm install
+npm run dev
+```
 
-## React Compiler
+Runs on `http://localhost:5173` by default. The backend must be running on `:3005`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Scripts
 
-## Expanding the ESLint configuration
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server with HMR |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Key Dependencies
+
+- **React 19** + **Vite 8**
+- **Framer Motion** — page and card animations
+- **react-syntax-highlighter** — diff viewer
+- **jsPDF** + **html2canvas** — PDF export
+- **DOMPurify** — sanitize AI-generated HTML
+- **lucide-react** — icons
+- **react-hot-toast** — notifications
