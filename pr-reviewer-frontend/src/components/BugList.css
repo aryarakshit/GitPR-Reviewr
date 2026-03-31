@@ -1,0 +1,165 @@
+.bug-items {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-subtle);
+}
+
+.bug-item {
+  background: var(--surface-color);
+  border-bottom: 2px solid var(--border-subtle);
+}
+
+.bug-item:last-child {
+  border-bottom: none;
+}
+
+.bug-item-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 16px; /* so the button doesn't touch the edge */
+  transition: background var(--transition-fast);
+}
+
+.bug-item-header-row:hover {
+  background: var(--bg-hover);
+}
+
+.bug-item-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  padding: 16px 16px;
+  border: none;
+  background: transparent !important;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-primary);
+  text-align: left;
+  outline: none;
+}
+
+.bug-item-header:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+.bug-item-header-row .bug-item-view-diff {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.bug-item-issue {
+  flex: 1;
+  min-width: 0;
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bug-item-location {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.05); /* Lighter for dark theme */
+  padding: 4px 8px;
+  border: 1px dashed var(--border-subtle); /* dashed sketch look */
+  border-radius: var(--radius-sm);
+  flex-shrink: 1; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.bug-item-chevron-wrap {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+  display: flex;
+}
+
+/* ─── Expanded Detail ─── */
+.bug-item-detail-wrap {
+  overflow: hidden;
+}
+
+.bug-item-detail {
+  padding: 16px 20px 20px 48px;
+  background: rgba(255, 255, 255, 0.03); /* Lighter detail pane in dark theme */
+  border-top: 2px solid var(--border-subtle);
+}
+
+.bug-detail-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent); /* Make it pop instead of hiding */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  font-family: var(--font-hand);
+}
+
+.bug-item-detail p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-primary); /* Brighter reading text */
+  margin-bottom: 0;
+}
+
+/* ─── Empty State ─── */
+.bug-list-empty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--surface-color);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--success);
+  box-shadow: var(--shadow-subtle);
+}
+
+.empty-icon {
+  color: var(--success);
+  flex-shrink: 0;
+}
+
+.empty-text {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--success);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 480px) {
+  .bug-item-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .bug-item-issue {
+    order: 2;
+    flex: 0 0 100%;
+    white-space: normal;
+  }
+
+  .bug-item-location {
+    order: 1;
+  }
+
+  .bug-item-chevron-wrap {
+    order: 3;
+    margin-left: auto;
+  }
+}

@@ -1,0 +1,141 @@
+/* ─── PR Meta Card ─── */
+.pr-meta-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.pr-meta-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pr-meta-title {
+  font-family: var(--font-hand);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  word-break: break-word;
+  color: var(--text-primary);
+}
+
+.pr-meta-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.pr-meta-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.pr-meta-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+}
+
+.pr-meta-branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05); /* Lighter for dark theme */
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 2px dashed var(--border-subtle); /* Chalkboard dash look */
+}
+
+.pr-meta-arrow {
+  color: var(--text-tertiary);
+}
+
+.pr-meta-icon {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+/* ─── Stats Row ─── */
+.pr-meta-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-top: 2px solid var(--border-subtle);
+  margin-top: 20px;
+  padding-top: 16px;
+  flex-wrap: wrap;
+}
+
+.pr-meta-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.stat-add { color: var(--success); }
+.stat-del { color: var(--danger); }
+.stat-files { color: var(--warning); }
+
+/* ─── Score Ring ─── */
+.pr-meta-score-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px; /* balanced gap for the larger 80px ring */
+  flex-shrink: 0;
+}
+
+.score-subtitle {
+  font-family: var(--font-hand);
+  font-size: 20px; 
+  color: var(--text-primary);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .pr-meta-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .pr-meta-title {
+    font-size: 22px;
+  }
+
+  .pr-meta-score-wrap {
+    align-self: flex-start;
+  }
+
+  .pr-meta-stats {
+    gap: 12px;
+  }
+
+  .pr-meta-details {
+    font-size: 15px;
+  }
+
+  .pr-meta-branch {
+    font-size: 13px;
+  }
+}

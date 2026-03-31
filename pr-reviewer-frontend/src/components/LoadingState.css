@@ -1,0 +1,52 @@
+/* ─── Loading State ─── */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 60px 0;
+}
+
+.loading-spinner-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--surface-color);
+  border-radius: 50%;
+  border: 2px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+}
+
+.loading-messages {
+  height: 40px; /* Increased to fix cutoff font */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.loading-message {
+  font-size: 22px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+  .loading-spinner-wrap {
+    width: 36px;
+    height: 36px;
+  }
+
+  .loading-messages {
+    height: 34px;
+  }
+
+  .loading-message {
+    font-size: 18px;
+  }
+}

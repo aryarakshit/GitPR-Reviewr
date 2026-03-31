@@ -1,0 +1,162 @@
+/* ─── Complexity Items ─── */
+.comp-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comp-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-subtle);
+}
+
+.comp-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.comp-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.comp-file {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge.comp-improved { background: var(--success-bg); color: var(--success); border-color: var(--success-border); }
+.badge.comp-neutral  { background: var(--bg-color); color: var(--text-secondary); border-color: var(--border-subtle); }
+.badge.comp-degraded { background: var(--warning-bg); color: var(--warning); border-color: var(--warning-border); }
+
+/* ─── Bar Rows ─── */
+.comp-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comp-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comp-bar-label {
+  width: 50px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: right;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.comp-bar-track {
+  flex: 1;
+  height: 12px;
+  background: rgba(0,0,0,0.05);
+  border-radius: var(--radius-sm);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+.comp-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.comp-bar-before { background: var(--text-tertiary); }
+.comp-bg-improved { background: var(--success); }
+.comp-bg-neutral  { background: var(--text-tertiary); }
+.comp-bg-degraded { background: var(--danger); }
+
+.comp-bar-val {
+  width: 26px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  text-align: right;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+/* ─── Split Suggestion Banner ─── */
+.comp-split-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background: var(--warning-bg);
+  border: 2px solid var(--warning);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-subtle);
+}
+
+.comp-split-icon {
+  color: var(--text-primary);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.comp-split-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+/* ─── Safe Banner ─── */
+.comp-safe-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.03);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-subtle);
+}
+
+.comp-safe-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+  .comp-item-header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .comp-file {
+    flex: 0 0 100%;
+    font-size: 13px;
+  }
+
+  .comp-bar-label {
+    width: 36px;
+    font-size: 13px;
+  }
+
+  .comp-bar-val {
+    font-size: 13px;
+  }
+}

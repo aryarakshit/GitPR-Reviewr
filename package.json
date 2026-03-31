@@ -1,0 +1,16 @@
+{
+  "name": "pr-reviewer-fullstack",
+  "version": "1.0.0",
+  "description": "Root workspace to launch the GitHub PR Reviewer frontend and backend simultaneously.",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && npm install --prefix pr-reviewer-backend && npm install --prefix pr-reviewer-frontend",
+    "dev:frontend": "npm run dev --prefix pr-reviewer-frontend",
+    "dev:backend": "npm run dev --prefix pr-reviewer-backend",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\" --kill-others --names \"frontend,backend\" --prefix-colors \"cyan,magenta\"",
+    "start": "concurrently \"npm start --prefix pr-reviewer-frontend\" \"npm start --prefix pr-reviewer-backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

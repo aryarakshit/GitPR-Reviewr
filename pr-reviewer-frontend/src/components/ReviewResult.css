@@ -1,0 +1,51 @@
+/* ─── Result Container ─── */
+.review-result {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.results-row-full {
+  width: 100%;
+}
+
+.results-row-split-half {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  width: 100%;
+}
+
+.results-row-split-third {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  width: 100%;
+}
+
+.results-col {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure inner cards stretch naturally */
+.results-col > .card {
+  height: 100%;
+  margin: 0;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .results-row-split-half {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1200px) {
+  .results-row-split-third {
+    grid-template-columns: 1fr;
+  }
+}

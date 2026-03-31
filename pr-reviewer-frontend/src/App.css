@@ -1,0 +1,282 @@
+/* ─── Landing Layout ─── */
+.app-landing {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ─── Hero Header (landing only) ─── */
+.app-hero {
+  padding-bottom: 32px;
+  text-align: center;
+}
+
+.app-hero h1 {
+  font-size: 56px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  border: none;
+  letter-spacing: -0.02em;
+}
+
+.app-tagline {
+  font-size: 20px;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 300;
+}
+
+/* ─── Hero Main (landing area bento grid) ─── */
+.app-hero-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* ─── Masonry Grid (Pinterest-style) ─── */
+.masonry-grid {
+  columns: 2;
+  column-gap: 24px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.masonry-item,
+.bento-item {
+  break-inside: avoid;
+  margin-bottom: 24px;
+}
+
+/* Paired sub-grid (2 cards side by side inside a masonry column) */
+.masonry-subgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  break-inside: avoid;
+  margin-bottom: 24px;
+}
+
+.masonry-subgrid .bento-item {
+  margin-bottom: 0; /* gap handles spacing inside subgrid */
+}
+
+.bento-item {
+  background: var(--surface-color);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.bento-item:hover {
+  transform: translateY(-2px) translateX(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.bento-subitem {
+  height: 140px;
+}
+
+.bento-item-title {
+  font-family: var(--font-hand);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.bento-item-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Impact Analysis Rich Card ─── */
+.impact-list {
+  list-style: none;
+  margin-top: 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.impact-list li {
+  font-family: var(--font-hand);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 10px 16px;
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.impact-list li::before {
+  content: '—';
+  font-family: var(--font-hand);
+  font-size: 22px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+/* ─── Use Case Card ─── */
+.bento-use-case {
+  padding: 24px 28px;
+}
+
+.use-case-label {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.use-case-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.use-case-chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.use-case-chip {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  text-align: center;
+  transition: background var(--transition-fast);
+}
+
+.use-case-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ─── Results Layout ─── */
+.app-results-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Slim Navbar (results mode) ─── */
+.app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface-header); 
+  border-bottom: 2px solid var(--border-subtle); 
+  box-shadow: var(--shadow-subtle);
+}
+
+.app-navbar-inner {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  gap: 16px;
+}
+
+.app-navbar-brand {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+.app-navbar-spacer {
+  flex: 1;
+}
+
+/* ─── Results Main ─── */
+.app-results-main {
+  flex: 1;
+  padding-top: clamp(16px, 3vw, 32px);
+  padding-bottom: clamp(40px, 8vw, 100px);
+}
+
+/* ─── Loading ─── */
+.app-loading-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .app-hero {
+    padding: 40px 0 24px;
+  }
+
+  .app-hero h1 {
+    font-size: 48px;
+  }
+
+  .app-tagline {
+    font-size: 16px;
+  }
+
+  .app-navbar-inner {
+    height: 52px;
+    gap: 10px;
+  }
+
+  .app-navbar-brand {
+    font-size: 18px;
+  }
+
+  .app-features {
+    gap: 8px;
+  }
+
+  .app-feature-chip {
+    font-size: 14px;
+    padding: 5px 10px;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-hero h1 {
+    font-size: 36px;
+  }
+
+  .app-tagline {
+    font-size: 15px;
+  }
+
+  .app-navbar-brand {
+    display: none;
+  }
+
+  .masonry-grid {
+    columns: 1;
+  }
+  .masonry-subgrid {
+    grid-template-columns: 1fr;
+  }
+}

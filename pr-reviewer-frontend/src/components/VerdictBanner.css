@@ -1,0 +1,120 @@
+.verdict-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  border: 2px solid var(--border-subtle);
+  background-color: var(--surface-color);
+  box-shadow: var(--shadow-card);
+}
+
+.verdict-success {
+  background-color: var(--success-bg);
+  border-color: var(--border-subtle);
+}
+
+.verdict-warning {
+  background-color: var(--warning-bg);
+  border-color: var(--border-subtle);
+}
+
+.verdict-danger {
+  background-color: var(--danger-bg);
+  border-color: var(--border-subtle);
+}
+
+.verdict-banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.verdict-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.verdict-header h2 {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 36px;
+  font-weight: 700;
+  color: inherit;
+  border-bottom: none;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.verdict-reason {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.verdict-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.verdict-actions button {
+  background: var(--surface-color);
+  border: 2px solid var(--danger);
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  color: var(--danger);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  white-space: nowrap;
+  box-shadow: 2px 2px 0 var(--border-subtle);
+}
+
+.verdict-actions button:focus-visible {
+  outline: 2px solid var(--danger);
+  outline-offset: 4px;
+}
+
+.verdict-actions button:hover {
+  transform: translateY(2px) translateX(2px);
+  box-shadow: 0 0 0 var(--border-subtle);
+  background: var(--danger);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .verdict-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .verdict-header h2 {
+    font-size: 22px;
+  }
+
+  .verdict-reason {
+    font-size: 15px;
+  }
+
+  .verdict-actions {
+    align-self: stretch;
+  }
+
+  .verdict-actions button {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+}
